@@ -46,7 +46,30 @@
 </head>
 <body>
     <main>
-        
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Hotel
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                foreach ($hotels as $hotel) {
+                    ?>
+                    <tr>
+                        <td>
+                            <?php 
+                           echo $hotel["name"];
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
     </main>
 </body>
 </html>

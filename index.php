@@ -36,6 +36,23 @@
             'distance_to_center' => 50
         ],
     ];
+    $filteredHotels = [];
+    foreach ($hotels as $hotel) {
+        if(isset($_GET['parking'])) {
+            if ($_GET['parking'] == '1'
+            &&
+            $hotel['parking'] == true)
+            { $filteredHotels[] = $hotel;} 
+            else if  ($_GET['parking'] == '0'
+            &&
+            $hotel['parking'] == false ) {
+                $filteredHotels[] = $hotel;
+            } else if ( $_GET['parking'] == '')  
+            {
+                $filteredHotels[] = $hotel; 
+            } 
+        } 
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +64,9 @@
 </head>
 <body>
     <header>
-
+        <h1>
+            Hotels
+        </h1>
     </header>
     <main>
         <table class="table">
@@ -72,22 +91,22 @@
             </thead>
             <tbody>
                 <?php 
-                foreach ($hotels as $hotel) {
+                foreach ($filteredHotels as $index => $singleHotel) {
                     ?>
                     <tr>
                         <td scope="row">
                             <?php 
-                           echo $hotel["name"];
+                           echo $singleHotel["name"];
                             ?>
                         </td>
                         <td scope="row">
                             <?php 
-                           echo $hotel["description"];
+                           echo $singleHotel["description"];
                             ?>
                         </td>
                         <td scope="row">
                             <?php 
-                            if ($hotel["parking"] == true) {
+                            if ($singleHotel["parking"] == true) {
                                 echo 'Si';
                             } else {
                                 echo 'No';
@@ -96,12 +115,12 @@
                         </td>
                         <td scope="row">
                             <?php 
-                           echo $hotel["vote"];
+                           echo $singleHotel["vote"];
                             ?>
                         </td>
                         <td scope="row">
                             <?php 
-                           echo $hotel["distance_to_center"] . 'km';
+                           echo $singleHotel["distance_to_center"] . 'km';
                             ?>
                         </td>
                     </tr>
@@ -110,6 +129,15 @@
                 ?>
             </tbody>
         </table>
+        <form action="" method="GET">
+            <label for="parking">Seleziona </label>
+                <select class="form-select w-25" name="parking" id="parking">
+                  <option value="">Tutti gli hotel</option>
+                  <option value="1">Hotel con parcheggio</option>
+                  <option value="0">Hotel senza parcheggio</option>
+                </select>
+                <button type="submit" class="btn btn-info mt-3">Cerca</button>
+                </form>
     </main>
 </body>
 </html>
